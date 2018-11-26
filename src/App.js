@@ -1,28 +1,43 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { PureComponent } from 'react';
+
 import './App.css';
 
-class App extends Component {
+const Time=(props)=>{
+  console.log('const called.....')
+return <div>{props.value}</div>
+}
+class App extends PureComponent {
+  constructor(props) {
+    super(props);
+   this.state={
+     value:Math.random()
+   }
+  }
+  componentDidMount(){
+    setInterval(()=>{
+      this.setState(()=>{
+        return {value:2}
+      });
+    },10000)
+  }
+  
+
   render() {
+    console.log('render called.....')
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Time value={this.state.value}></Time>
       </div>
     );
   }
 }
 
 export default App;
+/*shouldComponentUpdate(nextProp,nextState){
+     
+    console.log('nextState',nextState);
+    console.log('currentState',this.state);
+    return ( this.state.value===nextState.value?true:false)
+
+    
+  }*/
